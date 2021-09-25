@@ -6,6 +6,13 @@
     <title>LeftWM - A tiling window manager for Adventurers</title>
     <link rel="stylesheet" type="text/css" href="index.css" >
 
+    <!-- Favicons -->
+    <link rel="shortcut icon" type="image/png" href="/logo.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36670173-5"></script>
     <script>
@@ -25,12 +32,16 @@
     <h1>LeftWM - A tiling window manager for Adventurers</h1>
 
 		<nav>
+      <label for='theme'>Theme:&nbsp;&nbsp;&nbsp;</label>
+      <select id='theme' name='theme'>
+        <option value = 'default'>Default</option>
+      </select>
 		</nav>
 
     <article>
 
       <section>
-        <h2>Why go left</h2>
+        <h2>Why go left?</h2>
         <p>Left is a tiling window manager written in rust for stability and performance. The core of left is designed to do one thing and one thing well. Be a window manager. Because you probably want more than just a black screen LeftWM is built around the concept of theming. With themes you can choose between different bar / compositor / background / colors, whatever makes you happy.</p>
         <p>
           LeftWM has been built from the very beginning to support multiple screens and has been built around ultrawide monitors. You will see this with the default key bindings
@@ -67,13 +78,154 @@
         <a href='screenshots/1.jpg'><img alt='LeftWM' class='screenshot' src='screenshots/1_thumb.jpg' /></a>
         <a href='screenshots/2.jpg'><img alt='LeftWM' class='screenshot' src='screenshots/2_thumb.jpg' /></a>
         <h3>Dual Display</h3>
-        <a href='screenshots/3.jpg'><img alt='LeftWM' class='screenshot' src='screenshots/3_thumb.jpg' /></a>
+        <a href='scr"#746acc"eenshots/3.jpg'><img alt='LeftWM' class='screenshot' src='screenshots/3_thumb.jpg' /></a>
         <a href='screenshots/4.jpg'><img alt='LeftWM' class='screenshot' src='screenshots/4_thumb.jpg' /></a>
       </section>
 
     </article>
 
     <script type='text/javascript'>
+    let theme_element = document.getElementById("theme");
+    theme_element.addEventListener("change", updateTheme);
+
+    let themes = {
+  "orange-forest": {
+    "background": "https://raw.githubusercontent.com/PVautour/leftwm-theme-orange-forest/master/background.jpg",
+    "border_width": 4,
+    "margin": 10,
+    "default_border_color": "#1E272B",
+    "floating_border_color": "#1E272B",
+    "focused_border_color": "#78824B"
+  },
+  "soothe": {
+    "background": "https://raw.githubusercontent.com/b4skyx/leftwm-soothe/master/theme/background.jpg",
+    "border_width": 1,
+    "margin": 4,
+    "default_border_color": "#8a76c2",
+    "floating_border_color": "#8dace3",
+    "focused_border_color": "#746acc"
+  },
+  "tng": {
+    "background": "https://raw.githubusercontent.com/lex148/leftwm-tng/master/background.jpg",
+    "border_width": 10,
+    "margin": 20,
+    "default_border_color": "#9797cb",
+    "floating_border_color": "#9797cb",
+    "focused_border_color": "#fdcc66"
+  },
+  "windows-xp": {
+    "background": "https://raw.githubusercontent.com/lex148/leftwm-windowsxp/master/wallpaper.jpg",
+    "border_width": 3,
+    "margin": 20,
+    "default_border_color": "#122932",
+    "floating_border_color": "#2a4d73",
+    "focused_border_color": "#2a4d73"
+  },
+  "dracula-rounded": {
+    "background": "https://raw.githubusercontent.com/AethanFoot/leftwm-theme-dracula-rounded/master/background.jpg",
+    "border_width": 2,
+    "margin": [
+      8,
+      8
+    ],
+    "default_border_color": "#bd93f9",
+    "floating_border_color": "#bd93f9",
+    "focused_border_color": "#ff79c6"
+  },
+  "forest": {
+    "background": "https://raw.githubusercontent.com/lex148/forest/master/background.jpg",
+    "border_width": 5,
+    "margin": 20,
+    "default_border_color": "#222222",
+    "floating_border_color": "#005500",
+    "focused_border_color": "#FFB53A"
+  },
+  "ground-zero": {
+    "background": "https://raw.githubusercontent.com/Qwart376/Ground-Zero/master/background.jpg",
+    "border_width": 2,
+    "margin": 10,
+    "default_border_color": "#3d3b3c",
+    "floating_border_color": "#3d3b3c",
+    "focused_border_color": "#2cb8b5"
+  },
+  "red-moon": {
+    "background": "https://raw.githubusercontent.com/Qwart376/Red-Moon/master/background.jpg",
+    "border_width": 2,
+    "margin": 10,
+    "default_border_color": "#3b3f40",
+    "floating_border_color": "#3b3f40",
+    "focused_border_color": "#b44e4c"
+  },
+  "blue-coffee": {
+    "background": "https://raw.githubusercontent.com/Qwart376/Blue-Coffee/master/background.jpg",
+    "border_width": 0,
+    "margin": 0,
+    "default_border_color": "#15304e",
+    "floating_border_color": "#15304e",
+    "focused_border_color": "#4d5a8a"
+  },
+  "sunflower": {
+    "background": "https://raw.githubusercontent.com/mautamu/leftwm-sunflower/master/background.jpg",
+    "border_width": 4,
+    "margin": [
+      10,
+      10
+    ],
+    "default_border_color": "#df6d26",
+    "floating_border_color": "#df6d26",
+    "focused_border_color": "#fba914"
+  },
+  "bumblebee": {
+    "background": "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=",
+    "border_width": 2,
+    "margin": 6,
+    "default_border_color": "#4A433D",
+    "floating_border_color": "#E6E5E5",
+    "focused_border_color": "#FFD000"
+  },
+  "changed-sunset": {
+    "background": "https://raw.githubusercontent.com/Syudagye/changed-sunset/master/background.jpg",
+    "border_width": 1,
+    "margin": 4,
+    "default_border_color": "#1e1e1e",
+    "floating_border_color": "#e2c08c",
+    "focused_border_color": "#b27e23"
+  },
+  "garden": {
+    "background": "https://raw.githubusercontent.com/taylor85345/leftwm-theme-garden/master/background.jpg",
+    "border_width": 1,
+    "margin": [
+      8,
+      8
+    ],
+    "default_border_color": "#F48FB1",
+    "floating_border_color": "#F1FF52",
+    "focused_border_color": "#53E2AE"
+  }
+};
+
+for(var key in themes){
+  theme_element.innerHTML += "<option value="+key+">"+key+"</option>";
+}
+
+let root = document.documentElement;
+
+    function updateTheme(){
+      if(theme_element.value == 'default'){
+      root.style.setProperty('--background', "#333");
+      root.style.setProperty('--margin', "5px");
+      root.style.setProperty('--border_width', "2px");
+      root.style.setProperty('--default_border_color', "rgba(255,255,0,0.6)");
+      root.style.setProperty('--focused_border_color', "rgba(255,0,0,0.6)");
+      root.style.setProperty('--floating_border_color', "rgba(255,255,0,0.6)");
+      } 
+      root.style.setProperty('--background', "url(" + themes[theme_element.value].background+") no-repeat center center fixed");
+      root.style.setProperty('--margin', themes[theme_element.value].margin+"px");
+      root.style.setProperty('--border_width', themes[theme_element.value].border_width+"px");
+      root.style.setProperty('--default_border_color', themes[theme_element.value].default_border_color);
+      root.style.setProperty('--focused_border_color', themes[theme_element.value].focused_border_color);
+      root.style.setProperty('--floating_border_color', themes[theme_element.value].floating_border_color);
+    }
     </script>
 
   </body>
