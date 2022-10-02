@@ -2,8 +2,21 @@
   box-sizing: border-box;
 }
 
+:root{
+  --background: #333;
+  --margin: 5px;
+  --border_width: 2px;
+  --default_border_color: rgba(255,255,0,0.6);
+  --focused_border_color: rgba(255,0,0,0.6);
+  --floating_border_color: rgba(255,255,0,0.6);
+}
+
 html, body{ 
-  background-color: #333;
+  background: var(--background);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   color: #FFF;
   padding: 0;
   margin:0;
@@ -28,6 +41,7 @@ h1{
   z-index: 2;
   position: relative;
   margin-bottom: 4em;
+  border: var(--border_width) solid var(--floating_border_color);
   background-color: rgba(0,0,0,0.8);
   padding-left: 5vw;
   padding-top: 1em;
@@ -36,6 +50,19 @@ h1{
 }
 
 nav{
+  z-index: 3;
+  background: rgba(0,0,0,0.8);
+  border: var(--border_width) solid var(--floating_border_color);
+  padding: 0.5em;
+  border-radius: 4px;
+  position:fixed;
+  top: 0px;
+  right: 0px;
+}
+
+nav select{
+  height: 30px;
+  border-radius: 10px;
 }
 
 h2{
@@ -60,13 +87,21 @@ section {
 section {
   position: relative;
   z-index: 2;
-  border-right: 1px solid rgba(255,255,0,0.6);
+  /* To show everything, like the WM itself does */
+  left: var(--border_width);
+/*  border-right: 1px solid rgba(255,255,0,0.6);
   border-top: 1px solid rgba(255,255,0,0.6);
   border-bottom: 1px solid rgba(255,255,0,0.6);
+*/
+  border: var(--border_width) solid var(--default_border_color);
   margin: 3em 0;
   padding: 1em 5vw 1em 5vw;
   background-color: rgba(0,0,0,0.9);
   border-radius: 4px;
+}
+
+section:hover, h1:hover, nav:hover{
+  border: var(--border_width) solid var(--focused_border_color);
 }
 
 .screenshot{
